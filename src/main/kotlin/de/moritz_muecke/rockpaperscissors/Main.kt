@@ -13,6 +13,7 @@ fun main(args: Array<String>) {
     val fistPlayerName = args.elementAtOrElse(1) { "Luke" }
     val secondPlayerName = args.elementAtOrElse(2) { "Leia" }
 
+    val detailedGameLogging = args.elementAtOrElse(3) { "false" }.toBoolean()
 
     val gameSession = try {
         GameSession.gameSessionFactory(
@@ -25,6 +26,6 @@ fun main(args: Array<String>) {
         exitProcess(0)
     }
 
-    val view = CliView(SimpleAutomatedGameEngine())
+    val view = CliView(SimpleAutomatedGameEngine(), detailedGameLogging)
     view.displayGameView(gameSession)
 }

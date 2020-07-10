@@ -12,10 +12,13 @@ controlled players. The implementation matches the following requirements:
 ## Custom parameters
 
 Per default the players are named Luke and Leia and they are playing 100 rounds against each other.
-You are able to customize those parameters by passing those three arguments to the application:
+You are able to customize those parameters by passing those four arguments to the application:
 - arg1: Number of rounds (Limited to 10000)
 - arg2: Name of the first player
 - arg3: Name of the second player
+- arg4: Boolean flag (`true`/`false`) for detailed game logging.
+    - Be careful with this argument. Since a lot of additional logs are written to stdout it costs a lot of performance
+     especially at game session > 5000 matches
 
 
 ### Execution with gradle

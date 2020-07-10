@@ -4,7 +4,7 @@ import de.moritz_muecke.rockpaperscissors.engine.GameEngine
 import de.moritz_muecke.rockpaperscissors.models.GameSession
 import de.moritz_muecke.rockpaperscissors.models.GameSessionResult
 
-class CliView(override val gameEngine: GameEngine) : View {
+class CliView(override val gameEngine: GameEngine, val detailedGameLogging: Boolean = false) : View {
 
     override fun displayGameView(gameSession: GameSession): Unit {
 
@@ -36,18 +36,19 @@ class CliView(override val gameEngine: GameEngine) : View {
 
     private fun runGameSession(gameSession: GameSession): GameSessionResult {
         val matchResults = (1..gameSession.rounds).map { i ->
-            printLnHorizontal()
-            printEmptyLn()
-            printWithRowEdge("Running game number $i")
             val matchResult = gameEngine.runMatch(gameSession.players)
-            printWithRowEdge("${gameSession.playerOneName} has chosen ${matchResult.playerOneAction} - ${gameSession.playerTwoName} chooses ${matchResult.playerTwoAction}")
-            if(matchResult.winner != null) {
-                printWithRowEdge("The winner is ${matchResult.winner.name}")
-            } else printWithRowEdge("OMG, we have a draw! Can this be more exiting?")
-            printEmptyLn()
+            if (detailedGameLogging) {
+                printLnHorizontal()
+                printEmptyLn()
+                printWithRowEdge("Finished game number $i")
+                printWithRowEdge("${gameSession.playerOneName} has chosen ${matchResult.playerOneAction} - ${gameSession.playerTwoName} chooses ${matchResult.playerTwoAction}")
+                if(matchResult.winner != null) {
+                    printWithRowEdge("The winner is ${matchResult.winner.name}")
+                } else printWithRowEdge("OMG, we have a draw! Can this be more exiting?")
+                printEmptyLn()
+            }
             matchResult
         }
-
         return GameSessionResult(matchResults)
     }
 
