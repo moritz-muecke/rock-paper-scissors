@@ -8,7 +8,7 @@ data class GameSession(val rounds: Int, val players: Pair<Player, Player>) {
     companion object {
         private const val maxRoundCount = 100000
 
-        fun initializeGameSession(roundsString: String, firstPlayerName: String, secondPlayerName: String): GameSession {
+        fun gameSessionFactory(roundsString: String, firstPlayerName: String, secondPlayerName: String): GameSession {
 
             require(roundsString.toIntOrNull() is Int) { "Given rounds parameter is not a number!" }
             val rounds = roundsString.toInt()
