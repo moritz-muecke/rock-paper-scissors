@@ -4,7 +4,10 @@ import de.moritz_muecke.rockpaperscissors.engine.GameEngine
 import de.moritz_muecke.rockpaperscissors.models.GameSession
 import de.moritz_muecke.rockpaperscissors.models.GameSessionResult
 
-class CliView(override val gameEngine: GameEngine, val detailedGameLogging: Boolean = false) : View {
+/**
+ * A View implementation which uses the CLI / stdout to display a game session
+ */
+class CliView(override val gameEngine: GameEngine, private val detailedGameLogging: Boolean = false) : View {
 
     override fun displayGameView(gameSession: GameSession): Unit {
 

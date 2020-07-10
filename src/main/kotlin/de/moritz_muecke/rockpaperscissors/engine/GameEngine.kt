@@ -9,6 +9,9 @@ import de.moritz_muecke.rockpaperscissors.models.enums.Result
 interface GameEngine {
     fun runMatch(players: Pair<Player, Player>): SingleMatchResult
 
+    /**
+     * This logic should always apply, no matter which kind of interactions and logic is implemented
+     */
     fun determineWinner(singleMatch: SingleMatch): Player? {
         return when (rockPaperScissorLogic(singleMatch.playerOneAction, singleMatch.playerTwoAction)) {
             Result.WIN -> singleMatch.players.first
@@ -17,6 +20,9 @@ interface GameEngine {
         }
     }
 
+    /**
+     * This logic should always apply, no matter which kind of interactions and logic is implemented
+     */
     private fun rockPaperScissorLogic(playerAction: Action, opponentAction: Action): Result {
         return when (playerAction) {
             opponentAction.beats() -> Result.LOSE

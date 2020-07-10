@@ -10,6 +10,7 @@ data class GameSession(val rounds: Int, val players: Pair<Player, Player>) {
         Setting this to not exceed the default configured GC size.
         The Current implementation runs one game after another without stopping. To allow a much bigger amount of rounds
         batch processing of automated generated games could be a solution.
+        As long as you don't print the detailed logs on the stdout you can of course raise this to a way higher amount
          */
         private const val maxRoundCount = 10000
 
