@@ -11,7 +11,7 @@ controlled players. The implementation matches the following requirements:
 
 ## Custom parameters
 
-Per default the players are named Luke and Leia and they are playing 100 rounds against each other.
+Per default the players are named Luke and Leia and they are playing 100 rounds against each other without detailed logging.
 You are able to customize those parameters by passing those four arguments to the application:
 - arg1: Number of rounds (Limited to 10000)
 - arg2: Name of the first player
@@ -35,7 +35,7 @@ It is not necessary to have gradle installed on your machine. If you have cloned
 
 #### With custom parameters
 
-- `./gradlew run --args="10 Cloud Squall"`
+- `./gradlew run --args="10 Cloud Squall true"`
 
 ## Testing
 
