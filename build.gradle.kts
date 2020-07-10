@@ -19,7 +19,9 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
+    implementation("ch.qos.logback:logback-classic:1.2.3")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.2")
+    testImplementation("io.mockk:mockk:1.10.0")
 }
 
 tasks {
