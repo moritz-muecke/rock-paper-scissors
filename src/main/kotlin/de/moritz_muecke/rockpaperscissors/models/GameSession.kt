@@ -26,7 +26,7 @@ data class GameSession(val rounds: Int, val players: Pair<Player, Player>) {
             require(firstPlayerName != secondPlayerName)
                 { "Both players have the same name. Be more creative!" }
             require(firstPlayerName.length <= nameMaxCharacters && secondPlayerName.length <= nameMaxCharacters)
-                { "Please stick to max $nameMaxCharacters characters per name. You are running my CLI Design!" }
+                { "Please stick to max $nameMaxCharacters characters per name. You are ruining my CLI Design!" }
 
             val firstPlayer = Player(name = firstPlayerName)
             val secondsPlayer = Player(name = secondPlayerName)
