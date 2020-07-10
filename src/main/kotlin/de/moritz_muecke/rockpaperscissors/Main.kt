@@ -9,9 +9,10 @@ import kotlin.system.exitProcess
 fun main(args: Array<String>) {
     val logger = LoggerFactory.getLogger("MainFunction")
 
-    val fistPlayerName = args.elementAtOrElse(0) { "PlayerOne" }
-    val secondPlayerName = args.elementAtOrElse(1) { "PlayerTwo" }
-    val rounds = args.elementAtOrElse(2) { "10" }
+    val rounds = args.elementAtOrElse(0) { "100" }
+    val fistPlayerName = args.elementAtOrElse(1) { "Luke" }
+    val secondPlayerName = args.elementAtOrElse(2) { "Leia" }
+
 
     val gameSession = try {
         GameSession.gameSessionFactory(
