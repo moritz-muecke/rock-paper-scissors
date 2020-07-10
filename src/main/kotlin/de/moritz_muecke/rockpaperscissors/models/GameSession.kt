@@ -6,7 +6,12 @@ data class GameSession(val rounds: Int, val players: Pair<Player, Player>) {
     val playerTwoName = players.second.name
 
     companion object {
-        private const val maxRoundCount = 100000
+        /*
+        Setting this to not exceed the default configured GC size.
+        The Current implementation runs one game after another without stopping. To allow a much bigger amount of rounds
+        batch processing of automated generated games could be a solution.
+         */
+        private const val maxRoundCount = 10000
 
         fun gameSessionFactory(roundsString: String, firstPlayerName: String, secondPlayerName: String): GameSession {
 
