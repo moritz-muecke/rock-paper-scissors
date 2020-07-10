@@ -5,5 +5,6 @@ import de.moritz_muecke.rockpaperscissors.models.GameSession
 
 interface View {
     val gameEngine: GameEngine
-    fun displayGameView(gameSession: GameSession): Unit
+    val gameSession: GameSession
+    fun displayGameView(): Unit
 }

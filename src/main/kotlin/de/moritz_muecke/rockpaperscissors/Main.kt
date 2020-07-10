@@ -26,6 +26,6 @@ fun main(args: Array<String>) {
         exitProcess(0)
     }
 
-    val view = CliView(SimpleAutomatedGameEngine(), detailedGameLogging)
-    view.displayGameView(gameSession)
+    val view = CliView(SimpleAutomatedGameEngine(), gameSession, detailedGameLogging)
+    view.displayGameView()
 }
