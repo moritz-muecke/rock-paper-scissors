@@ -9,7 +9,7 @@ controlled players. The implementation matches the following requirements:
 - The application should calculate at least the number of wins for each player as well as the number of draws.
 
 
-## Custom Parameters
+## Custom parameters
 
 Per default the players are named Luke and Leia and they are playing 100 rounds against each other.
 You are able to customize those parameters by passing those three arguments to the application:
@@ -26,9 +26,14 @@ It is not necessary to have gradle installed on your machine. If you have cloned
 
 #### With default parameters
 
-`./gradlew run`
+- `./gradlew run`
 
 
 #### With custom parameters
 
-`./gradlew run --args="10 Cloud Squall"`
+- `./gradlew run --args="10 Cloud Squall"`
+
+## Testing
+
+Unit Tests are written in JUnit5. To execute them you can also use [The Gradle-Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html)
+- `./gradlew test`
