@@ -10,16 +10,16 @@ class ActionTest {
 
     @Test
     fun `ROCK must beat SCISSORS`() {
-        assertEquals(Action.SCISSOR, rock.beats())
+        assertEquals(rock.beats(), Action.SCISSOR)
     }
 
     @Test
     fun `PAPER must beat ROCK`() {
-        assertEquals(Action.ROCK, paper.beats())
+        assertEquals(paper.beats(), Action.ROCK)
     }
 
     @Test
     fun `SCISSOR must beat PAPER`() {
-        assertEquals(Action.PAPER, scissor.beats())
+        assertEquals(scissor.beats(), Action.PAPER)
     }
 }
