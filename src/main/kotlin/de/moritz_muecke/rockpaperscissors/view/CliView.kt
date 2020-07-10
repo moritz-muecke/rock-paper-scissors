@@ -5,33 +5,66 @@ import de.moritz_muecke.rockpaperscissors.models.GameSession
 import de.moritz_muecke.rockpaperscissors.models.GameSessionResult
 
 class CliView(override val gameEngine: GameEngine) : View {
+
     override fun displayGameView(gameSession: GameSession): Unit {
 
-        println("Welcome our two opponents $gameSession.firstPlayerName and $gameSession.secondPlayerName.")
-        println("Get ready for ${gameSession.rounds} incredible Rock-Paper-Scissor matches!")
+        printLnHorizontal()
+        printWithRowEdge("ROCK - PAPER - SCISSORS")
+        printLnHorizontal()
+        printWithRowEdge("Welcome our two opponents:")
+        printWithRowEdge("${gameSession.playerOneName} and ${gameSession.playerTwoName}")
+        printLnHorizontal()
+        printWithRowEdge("Get ready for ${gameSession.rounds} incredible Rock-Paper-Scissor matches!")
 
         val gameSessionResult = runGameSession(gameSession)
 
         val draws = gameSessionResult.drawCount()
         val playerOneWins = gameSessionResult.playerWinCount(gameSession.players.first)
         val playerTwoWins = gameSessionResult.playerWinCount(gameSession.players.second)
-        println("${gameSessionResult.matchResults.size} Matches were fought bravely!")
-        println("${gameSession.playerOneName} has won $playerOneWins Matches, ${gameSession.playerTwoName} has won $playerTwoWins and we have $draws Draws!")
+        printLnHorizontal()
+        printWithRowEdge("${gameSessionResult.matchResults.size} Matches were fought bravely!")
+        printEmptyLn()
+        printWithRowEdge("Scoreboard:")
+        printWithRowEdge("${gameSession.playerOneName}: $playerOneWins - ${gameSession.playerTwoName}: $playerTwoWins - Draws: $draws")
+        printEmptyLn()
+        if(playerOneWins == playerTwoWins) {
+            printWithRowEdge("UNBELIEVABLE, WE HAVE NO WINNER! IT'S A DRAW")
+        } else printWithRowEdge("AND THE WINNER IS: ${if(playerOneWins > playerTwoWins) gameSession.playerOneName.toUpperCase() else gameSession.playerTwoName.toUpperCase()}")
+        printLnHorizontal()
 
     }
 
     private fun runGameSession(gameSession: GameSession): GameSessionResult {
         val matchResults = (1..gameSession.rounds).map { i ->
-            println("Running game number $i")
+            printLnHorizontal()
+            printEmptyLn()
+            printWithRowEdge("Running game number $i")
             val matchResult = gameEngine.runMatch(gameSession.players)
-            println("${gameSession.playerOneName} has chosen ${matchResult.playerOneAction} - ${gameSession.playerTwoName} chooses ${matchResult.playerTwoAction}")
+            printWithRowEdge("${gameSession.playerOneName} has chosen ${matchResult.playerOneAction} - ${gameSession.playerTwoName} chooses ${matchResult.playerTwoAction}")
             if(matchResult.winner != null) {
-                println("The winner is ${matchResult.winner.name}")
-            } else println("OMG, we have a draw! Can this be more exiting?")
-
+                printWithRowEdge("The winner is ${matchResult.winner.name}")
+            } else printWithRowEdge("OMG, we have a draw! Can this be more exiting?")
+            printEmptyLn()
             matchResult
         }
 
         return GameSessionResult(matchResults)
+    }
+
+    private val lineWith = 110
+    private val rowEdge = "|"
+    private val horizontal = rowEdge + "-".repeat(lineWith - 1)
+    private val emptyLine = rowEdge + " ".repeat(lineWith - 1)
+
+    private fun printWithRowEdge(text: String) {
+        println("$rowEdge$text")
+    }
+
+    private fun printLnHorizontal() {
+        println(horizontal)
+    }
+
+    private fun printEmptyLn() {
+        println(emptyLine)
     }
 }

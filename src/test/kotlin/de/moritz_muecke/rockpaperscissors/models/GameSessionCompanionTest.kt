@@ -41,4 +41,23 @@ class GameSessionCompanionTest {
         assertEquals(exception.message,"Both players have the same name. Be more creative!")
     }
 
+    @Test
+    fun `gameSessionFactory should throw an IllegalArgumentException when player names are to long`() {
+        val ex1 = assertThrows(IllegalArgumentException::class.java) {
+            GameSession.gameSessionFactory("10", "a".repeat(21), "Luke")
+        }
+
+        val ex2 = assertThrows(IllegalArgumentException::class.java) {
+            GameSession.gameSessionFactory("12", "Luke", "a".repeat(21))
+        }
+
+        val ex3 = assertThrows(IllegalArgumentException::class.java) {
+            GameSession.gameSessionFactory("12", "a".repeat(21), "b".repeat(21))
+        }
+
+        listOf(ex1, ex2, ex3).forEach {
+            assertEquals(it.message,"Please stick to max 20 characters per name. You are running my CLI Design!")
+        }
+    }
+
 }
