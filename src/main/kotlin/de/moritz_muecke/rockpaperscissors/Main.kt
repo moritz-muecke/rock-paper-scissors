@@ -2,7 +2,7 @@ package de.moritz_muecke.rockpaperscissors
 
 import de.moritz_muecke.rockpaperscissors.engine.SimpleAutomatedGameEngine
 import de.moritz_muecke.rockpaperscissors.models.GameSession
-import de.moritz_muecke.rockpaperscissors.view.CliView
+import de.moritz_muecke.rockpaperscissors.view.CliGameView
 import org.slf4j.LoggerFactory
 import kotlin.system.exitProcess
 
@@ -26,6 +26,6 @@ fun main(args: Array<String>) {
         exitProcess(0)
     }
 
-    val view = CliView(SimpleAutomatedGameEngine(), gameSession, detailedGameLogging)
+    val view = CliGameView(SimpleAutomatedGameEngine(), gameSession, detailedGameLogging)
     view.displayGameView()
 }

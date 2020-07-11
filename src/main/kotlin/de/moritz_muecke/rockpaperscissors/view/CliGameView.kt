@@ -8,7 +8,7 @@ import de.moritz_muecke.rockpaperscissors.models.SingleMatchResult
 /**
  * A View implementation which uses the CLI / stdout to display a game session
  */
-class CliView(override val gameEngine: GameEngine, override val gameSession: GameSession, private val detailedGameLogging: Boolean = false) : View {
+class CliGameView(override val gameEngine: GameEngine, override val gameSession: GameSession, private val detailedGameLogging: Boolean = false) : GameView {
 
     private val stdOutHelper = StdOutHelper()
 

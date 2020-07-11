@@ -10,11 +10,11 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Test
 
-class CliViewTest {
+class CliGameViewTest {
     private val rounds = 10
     private val gameEngineMock = mockk<GameEngine>()
     private val gameSession = GameSession(rounds, Pair(Player(name = "Luke"), Player(name = "Leia")))
-    private val cliView = CliView(gameEngineMock, gameSession)
+    private val cliView = CliGameView(gameEngineMock, gameSession)
 
     @Test
     fun `DisplayGameView calls the game engine as expected`() {
