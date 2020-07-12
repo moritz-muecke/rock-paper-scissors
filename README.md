@@ -18,8 +18,8 @@ You are able to customize those parameters by passing those four arguments to th
 - arg3: Name of the second player (Limited to 20 characters to keep the stdout clean)
 - arg4: Boolean flag (`true`/`false`) for detailed game logging. Every string which does not match `true` will be parsed
  as `false`
-    - Be careful with this argument. Since a lot of additional logs are written to stdout it costs a lot of performance
-     especially at game session > 5000 matches
+    - This produces a lot of additional written logs to stdout and will cost some performance
+     especially with game session size > 10000 matches
 
 
 ### Execution with gradle

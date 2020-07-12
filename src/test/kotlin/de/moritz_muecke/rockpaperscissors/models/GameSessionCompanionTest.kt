@@ -28,9 +28,9 @@ class GameSessionCompanionTest {
     @Test
     fun `gameSessionFactory should throw an IllegalArgumentException when round count exceeds limit`() {
         val exception = assertThrows(IllegalArgumentException::class.java) {
-            GameSession.gameSessionFactory("10001", "Luke", "Leia")
+            GameSession.gameSessionFactory("50001", "Luke", "Leia")
         }
-        assertEquals(exception.message,"Game does not support more than 10000 rounds!")
+        assertEquals(exception.message,"Game does not support more than 50000 rounds!")
     }
 
     @Test
@@ -56,7 +56,7 @@ class GameSessionCompanionTest {
         }
 
         listOf(ex1, ex2, ex3).forEach {
-            assertEquals(it.message,"Please stick to max 20 characters per name. You are running my CLI Design!")
+            assertEquals(it.message,"Please stick to max 20 characters per name. You are ruining my CLI Design!")
         }
     }
 
