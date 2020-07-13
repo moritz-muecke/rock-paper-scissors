@@ -1,5 +1,6 @@
 package de.moritz_muecke.rockpaperscissors.view
 
+import arrow.core.Some
 import de.moritz_muecke.rockpaperscissors.engine.GameEngine
 import de.moritz_muecke.rockpaperscissors.models.GameSession
 import de.moritz_muecke.rockpaperscissors.models.Player
@@ -18,7 +19,7 @@ class CliGameViewTest {
 
     @Test
     fun `DisplayGameView calls the game engine as expected`() {
-        val expectedResult = SingleMatchResult(gameSession.players.first, Action.ROCK, Action.SCISSOR)
+        val expectedResult = SingleMatchResult(Some(gameSession.players.first), Action.ROCK, Action.SCISSOR)
         every { gameEngineMock.runMatch(gameSession.players) } returns expectedResult
         cliView.displayGameView()
         verify(exactly = rounds) { gameEngineMock.runMatch(gameSession.players) }

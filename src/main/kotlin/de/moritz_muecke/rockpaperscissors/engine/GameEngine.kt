@@ -1,5 +1,8 @@
 package de.moritz_muecke.rockpaperscissors.engine
 
+import arrow.core.None
+import arrow.core.Option
+import arrow.core.Some
 import de.moritz_muecke.rockpaperscissors.models.SingleMatchResult
 import de.moritz_muecke.rockpaperscissors.models.Player
 import de.moritz_muecke.rockpaperscissors.models.SingleMatch
@@ -15,11 +18,11 @@ interface GameEngine {
     /**
      * This logic should always apply, as it represents the basic rock paper scissor rules
      */
-    fun determineWinner(singleMatch: SingleMatch): Player? {
+    fun determineWinner(singleMatch: SingleMatch): Option<Player> {
         return when (rockPaperScissorLogic(singleMatch.playerOneAction, singleMatch.playerTwoAction)) {
-            Result.WIN -> singleMatch.players.first
-            Result.LOSE -> singleMatch.players.second
-            Result.DRAW -> null
+            Result.WIN -> Some(singleMatch.players.first)
+            Result.LOSE -> Some(singleMatch.players.second)
+            Result.DRAW -> None
         }
     }
 

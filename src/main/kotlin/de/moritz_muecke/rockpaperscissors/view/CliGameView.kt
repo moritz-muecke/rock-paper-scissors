@@ -1,5 +1,7 @@
 package de.moritz_muecke.rockpaperscissors.view
 
+import arrow.core.None
+import arrow.core.Some
 import de.moritz_muecke.rockpaperscissors.engine.GameEngine
 import de.moritz_muecke.rockpaperscissors.models.GameSession
 import de.moritz_muecke.rockpaperscissors.models.GameSessionResult
@@ -26,7 +28,8 @@ class CliGameView(override val gameEngine: GameEngine, override val gameSession:
             }
             matchResult
         }
-        return GameSessionResult(matchResults)
+
+        return GameSessionResult(matchResults, gameSession)
     }
 
     inner class StdOutHelper {
@@ -46,19 +49,22 @@ class CliGameView(override val gameEngine: GameEngine, override val gameSession:
         }
 
         fun printGameSessionResult(gameSessionResult: GameSessionResult) {
-            val draws = gameSessionResult.drawCount()
-            val playerOneWins = gameSessionResult.playerWinCount(gameSession.players.first)
-            val playerTwoWins = gameSessionResult.playerWinCount(gameSession.players.second)
             val winnerString =
-                if(playerOneWins == playerTwoWins) {
-                    "UNBELIEVABLE, WE HAVE NO WINNER! IT'S A DRAW"
-                } else "AND THE WINNER IS: ${if(playerOneWins > playerTwoWins) gameSession.playerOneName.toUpperCase() else gameSession.playerTwoName.toUpperCase()}"
+                when(val winner = gameSessionResult.winnersSummary()) {
+                    is None -> "UNBELIEVABLE, WE HAVE NO WINNER! IT'S A DRAW"
+                    is Some -> "AND THE WINNER IS: ${winner.t.name}"
+                }
+
+            val firstPlayerWins = gameSessionResult.firstPlayerSummary.wins
+            val secondPlayerWins = gameSessionResult.secondPlayerSummary.wins
+            val draws = gameSessionResult.draws
+
             val summary = """
                 |-------------------------------------------------------------------------------------------------------------
                 | ${gameSessionResult.matchResults.size} Matches were fought bravely!
                 |
                 | Scoreboard:
-                | ${gameSession.playerOneName}: $playerOneWins - ${gameSession.playerTwoName} : $playerTwoWins - Draws: $draws
+                | ${gameSessionResult.firstPlayerSummary.name}: $firstPlayerWins - ${gameSession.playerTwoName} : $secondPlayerWins - Draws: $draws
                 |
                 | $winnerString
                 |-------------------------------------------------------------------------------------------------------------
@@ -68,9 +74,10 @@ class CliGameView(override val gameEngine: GameEngine, override val gameSession:
         }
 
         fun printMatchDetails(matchResult: SingleMatchResult, matchNumber: Int) {
-            val winOrDraw = if(matchResult.winner != null) {
-                "${matchResult.winner.name} has won this match"
-            } else "OMG, we have a draw! Can this be more exiting?"
+            val winOrDraw = when(val w = matchResult.winner) {
+                is None -> "OMG, we have a draw! Can this be more exiting?"
+                is Some -> "${w.t.name} has won this match"
+            }
 
             val matchSummary = """
                 |-------------------------------------------------------------------------------------------------------------
