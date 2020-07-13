@@ -1,5 +1,6 @@
 package de.moritz_muecke.rockpaperscissors
 
+import arrow.core.Either
 import de.moritz_muecke.rockpaperscissors.engine.SimpleAutomatedGameEngine
 import de.moritz_muecke.rockpaperscissors.models.GameSession
 import de.moritz_muecke.rockpaperscissors.view.CliGameView
@@ -15,17 +16,25 @@ fun main(args: Array<String>) {
 
     val detailedGameLogging = args.elementAtOrElse(3) { "false" }.toBoolean()
 
-    val gameSession = try {
-        GameSession.gameSessionFactory(
-            roundsString = rounds,
-            firstPlayerName = fistPlayerName,
-            secondPlayerName = secondPlayerName
-        )
-    } catch (e: Exception) {
-        logger.error("Could not initialize game session. Reason: ${e.message} Ending the game now.")
-        exitProcess(0)
-    }
+    val generatedGameSession = GameSession.gameSessionFactory(
+        roundsString = rounds,
+        firstPlayerName = fistPlayerName,
+        secondPlayerName = secondPlayerName
+    )
 
-    val view = CliGameView(SimpleAutomatedGameEngine(), gameSession, detailedGameLogging)
-    view.displayGameView()
+    when(generatedGameSession) {
+        is Either.Left -> {
+            logger.error("Could not initialize game session. Reason: ${generatedGameSession.a.message} Ending the game now.")
+            exitProcess(0)
+        }
+        is Either.Right -> {
+            val view = CliGameView(
+                gameEngine = SimpleAutomatedGameEngine(),
+                gameSession = generatedGameSession.b,
+                detailedGameLogging = detailedGameLogging
+            )
+            view.displayGameView()
+        }
+    }
 }
+
